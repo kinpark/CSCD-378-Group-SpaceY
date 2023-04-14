@@ -82,7 +82,7 @@
         echo "Error creating database: " . $conn->error;
     }
 
-    //Create registration table   this was at the top: `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    //Create registration table
     $sql = "CREATE TABLE IF NOT EXISTS `registration`(
 		`id` INT AUTO_INCREMENT PRIMARY KEY,
         `user_id` INT NOT NULL,
