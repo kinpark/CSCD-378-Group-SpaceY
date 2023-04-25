@@ -13,7 +13,7 @@ $fname_err = $lname_err = $email_err = $password_err = $confirm_password_err = "
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Validate fname
-    if(empty(trim($_POST["fname"]))){
+    if(empty(trim($_POST["first_name"]))){
         $fname_err = "Please enter your first name.";
     } elseif(!preg_match('/^[a-zA-Z -]+$/', trim($_POST["first_name"]))){
         $username_err = "Name can only contain letters and hyphens(-).";
@@ -43,15 +43,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate lname
-    if(empty(trim($_POST["lname"]))){
+    if(empty(trim($_POST["last_name"]))){
         $lname_err = "Please enter your last name.";
     } elseif(!preg_match('/^[a-zA-Z -]+$/', trim($_POST["last_name"]))){
         $lname_err = "Name can only contain letters and hyphens(-).";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE last_name = ?";
+        $sql = "SELECT last_name FROM users WHERE last_name = ?";
         
-        if($stmt = $mysqli->prepare($sql)){
+        if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_lname);
             
@@ -75,13 +75,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate email
     if(empty(trim($_POST["email"]))){
         $email_err = "Please enter your email.";
-    } elseif(!preg_match('/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/', trim($_POST["email"]))){
-        $email_err = "Invalid email.";
+    } elseif(!preg_match('/^\\S+@\\S+\\.\\S+$/', trim($_POST["email"]))){   // different email validations:  /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        $email_err = "Invalid email.";                                      // email validation 2:  /^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     } else{
         // Prepare a select statement
         $sql = "SELECT email FROM users WHERE email = ?";
         
-        if($stmt = $mysqli->prepare($sql)){
+        if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_email);
             
@@ -132,7 +132,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare an insert statement
         $sql = "INSERT INTO users (first_name, last_name, password, email) VALUES (?, ?, ?, ?)";
          
-        if($stmt = $mysqli->prepare($sql)){
+        if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("ssss", $param_fname, $param_lname, $param_password, $param_email);
             
