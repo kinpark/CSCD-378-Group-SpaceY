@@ -14,6 +14,7 @@
     if($conn->connect_error){
         die("Connection failed: " . $conn->connect_error);
     }
+    //echo "Connected successfully";
 
     //Create database
     $sql = "CREATE DATABASE IF NOT EXISTS final_website";
@@ -31,4 +32,5 @@
     if($conn->connect_error){
         die("Connection failed: " . $conn->connect_error);
     }
+    echo "Connected successfully"
 ?>

@@ -1,74 +1,109 @@
 <?php
 
-//Still need to add email and lastname (done?) to all of this
+//Still need to add email and lastname (Done?) to all of this
 
 // Include config file
 require_once "config.php";
  
 // Define variables and initialize with empty values
 $fname = $lname = $email = $password = $confirm_password = "";
-$fname_err = $lname_err =$email_err = $password_err = $confirm_password_err = "";
+$fname_err = $lname_err = $email_err = $password_err = $confirm_password_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+    
     // Validate fname
     if(empty(trim($_POST["fname"]))){
         $fname_err = "Please enter your first name.";
-    } elseif(!preg_match('/^[a-zA-Z -]+$/', trim($_POST["fname"]))){
-        $fname_err = "Name can only contain letters and hyphens(-).";
+    } elseif(!preg_match('/^[a-zA-Z -]+$/', trim($_POST["first_name"]))){
+        $username_err = "Name can only contain letters and hyphens(-).";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE fname = ?";
+        $sql = "SELECT first_name FROM users WHERE first_name = ?";
         
-        if($stmt = mysqli_prepare($conn, $sql)){
+        if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_fname);
+            $stmt->bind_param("s", $param_fname);
             
             // Set parameters
-            $param_fname = trim($_POST["firstname"]);
+            $param_fname = trim($_POST["first_name"]);
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                $fname = trim($_POST["firstname"]);
+            if($stmt->execute()){
+                // store result
+                $stmt->store_result();
+                $fname = trim($_POST["first_name"]);
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            $stmt->close();
         }
     }
 
     // Validate lname
-    if(empty(trim($_POST["fname"]))){
+    if(empty(trim($_POST["lname"]))){
         $lname_err = "Please enter your last name.";
-    } elseif(!preg_match('/^[a-zA-Z -]+$/', trim($_POST["lname"]))){
+    } elseif(!preg_match('/^[a-zA-Z -]+$/', trim($_POST["last_name"]))){
         $lname_err = "Name can only contain letters and hyphens(-).";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE lname = ?";
+        $sql = "SELECT id FROM users WHERE last_name = ?";
         
-        if($stmt = mysqli_prepare($conn, $sql)){
+        if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_lname);
+            $stmt->bind_param("s", $param_lname);
             
             // Set parameters
-            $param_lname = trim($_POST["lastname"]);
+            $param_lname = trim($_POST["last_name"]);
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                /* store result */
-                mysqli_stmt_store_result($stmt);
-                $lname = trim($_POST["lastname"]);
+            if($stmt->execute()){
+                // store result
+                $stmt->store_result();
+                $lname = trim($_POST["last_name"]);
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            $stmt->close();
+        }
+    }
+
+    // Validate email
+    if(empty(trim($_POST["email"]))){
+        $email_err = "Please enter your email.";
+    } elseif(!preg_match('/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/', trim($_POST["email"]))){
+        $email_err = "Invalid email.";
+    } else{
+        // Prepare a select statement
+        $sql = "SELECT email FROM users WHERE email = ?";
+        
+        if($stmt = $mysqli->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("s", $param_email);
+            
+            // Set parameters
+            $param_email = trim($_POST["email"]);
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // store result
+                $stmt->store_result();
+                
+                if($stmt->num_rows == 1){
+                    $email_err = "This email is already in use.";
+                } else{
+                    $email = trim($_POST["email"]);
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            $stmt->close();
         }
     }
     
@@ -76,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";     
     } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Password must have at least 6 characters.";
+        $password_err = "Password must have atleast 6 characters.";
     } else{
         $password = trim($_POST["password"]);
     }
@@ -95,19 +130,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($fname_err) && empty($password_err) && empty($confirm_password_err) && empty($lname_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (fname, lname, password) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (first_name, last_name, password, email) VALUES (?, ?, ?, ?)";
          
-        if($stmt = mysqli_prepare($conn, $sql)){
+        if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $param_fname, $param_lname, $param_password);
+            $stmt->bind_param("ssss", $param_fname, $param_lname, $param_password, $param_email);
             
             // Set parameters
             $param_fname = $fname;
             $param_lname = $lname;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            
+            $param_email = $email;
+
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if($stmt->execute()){
                 // Redirect to login page
                 header("location: login.php");
             } else{
@@ -115,12 +151,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            $stmt->close();
         }
     }
     
     // Close connection
-    mysqli_close($conn);
+    $conn->close();
 }
 ?>
  
@@ -142,19 +178,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>First name</label>
-                <input type="text" name="fname" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $fname; ?>">
+                <input type="text" name="first_name" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $fname; ?>">
                 <span class="invalid-feedback"><?php echo $fname_err; ?></span>
-            </div> 
+            </div>   
             <div class="form-group">
                 <label>Last name</label>
-                <input type="text" name="lname" class="form-control <?php echo (!empty($lname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $lname; ?>">
+                <input type="text" name="last_name" class="form-control <?php echo (!empty($lname_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $lname; ?>">
                 <span class="invalid-feedback"><?php echo $lname_err; ?></span>
-            </div>  
+            </div> 
             <div class="form-group">
                 <label>Email</label>
                 <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
-            </div> 
+            </div>
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
