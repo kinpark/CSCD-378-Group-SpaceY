@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head>
+        <title>Search</title>
+        <link rel="stylesheet" href="search.css">
+    </head>
+    <header>
+        <h1>Search</h1>
+    </header>
+    <body>
+        <form method="POST" action="database.php" enctype="multipart/form-data">
+            <div>
+                <label for="searchBy">Search By:</label>
+                <input type="text" name="searchBy" id="searchBy" required>
+            </div>
+            <div>
+                <input type="text" name="searchBar" id="searchBar" required>
+            </div>
+            <div><input type="submit"></div>
+        </form>
+        <h2>Results</h2>
+    </body>
+</html>
