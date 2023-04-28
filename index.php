@@ -96,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; flex: 0 1 30%; }
+        .wrapper{ width: 360px; padding: 20px; flex: 0 1 30%; max-width:360px; }
         #info{ width: 700px; padding: 20px; flex: 0 1 70%; text-align: center; }
         #container{display: flex; flex-wrap: wrap;}
     </style>
@@ -132,7 +132,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Login">
                 </div>
-                <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+                <p>Don't have an account? <a href="signup2.php">Sign up now</a>.</p>
             </form>
         </div>
     </div>    

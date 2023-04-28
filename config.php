@@ -19,7 +19,8 @@
     //Create database
     $sql = "CREATE DATABASE IF NOT EXISTS final_website";
     if($conn->query($sql) === TRUE){
-        echo "Database created successfully";
+        //echo "Database created successfully";
+        echo " ";
     } else{
         echo "Error creating database: " . $conn->error;
     }
@@ -32,5 +33,5 @@
     if($conn->connect_error){
         die("Connection failed: " . $conn->connect_error);
     }
-    echo "Connected successfully"
+    //echo "Connected successfully"
 ?>
