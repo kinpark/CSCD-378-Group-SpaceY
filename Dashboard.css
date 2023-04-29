@@ -1,0 +1,11 @@
+body {
+    background: lightblue;
+    text-align: center;
+}
+h1 {
+    text-align: center;
+}
+
+.searchButton {
+    float: right;
+}
