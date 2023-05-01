@@ -64,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["email"] = $email;                            
                             
                             // Redirect user to welcome page
-                            header("location: welcome.php");    //need to change this to be like dashboard or home page
+                            header("location: Dashboard.html");    //need to change this to be like dashboard or home page
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid email or password.";
