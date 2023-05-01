@@ -5,8 +5,10 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
-            body{ font: 14px sans-serif; }
+            body{ font: 14px sans-serif; text-align: center;}
             #info{ margin: auto; }
+            h1{text-align: center; }
+            h2{text-align: center; }
         </style>
     </head>
     <header>
