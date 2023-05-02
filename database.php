@@ -59,7 +59,7 @@
         echo "Error creating database: " . $conn->error;
     }
 	
-    //Create event table
+    //Create event table, removed this at blank line below,  `type` ENUM('Indoor', 'Outdoor', 'Online') NOT NULL,
     $sql = "CREATE TABLE IF NOT EXISTS `events`(
         `EID` INT AUTO_INCREMENT PRIMARY KEY,
 		`organizer_id` INT NOT NULL,
@@ -72,7 +72,7 @@
 		`capacity` INT NOT NULL,
 		`category` INT NOT NULL,
 		`status` ENUM('Approved', 'Rejected', 'Pending') NOT NULL DEFAULT 'Pending',
-		`type` ENUM('Indoor', 'Outdoor', 'Online') NOT NULL,
+
         `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (`organizer_id`) REFERENCES `users`(`UID`),
