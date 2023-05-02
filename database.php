@@ -118,5 +118,69 @@
         echo "Error creating database: " . $conn->error;
     }	
 	
+    //Fill event category table
+    $sql = "INSERT INTO event_categories (name) VALUES ('Wedding');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Anniversary');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Birthday');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Barbecue');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Baby Shower');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Sporting Event');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Concert');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Reunion');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+    $sql = "INSERT INTO event_categories (name) VALUES ('Vacation');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+
+    //any other ideas above this one please
+    $sql = "INSERT INTO event_categories (name) VALUES ('Other');"
+    if($conn->query($sql) === TRUE){
+        echo "Table event_categories updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+
     $conn->close();
 ?>

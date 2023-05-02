@@ -13,21 +13,46 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
  
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
+    //print_r($_POST);
+
     $title = $_POST['title'];
     $description = $_POST['description'];
     $date = date('Y-m-d', strtotime($_POST['date']));
 
-    //$start_time = strtotime($_POST['startTime']);
-    //$end_time = strtotime($_POST['endTime']);
+    $start_time = ($_POST['startTime']);
+    $end_time = ($_POST['endTime']);
 
-    $start_time = $_POST['startTime'];
-    $end_time = $_POST['endTime'];
+    //$start_time = $_POST['startTime'];
+    //$end_time = $_POST['endTime'];
 
     $location = $_POST['location'];
     $capacity = $_POST['capacity'];
     $organizer_id = $_SESSION['UID'];
 
-    $sql = "INSERT INTO events (organizer_id, title, description, date, start_time, end_time, location, capacity) VALUES ($organizer_id, $title, $description, $date, $start_time, $end_time, $location, $capacity)";
+    $category = 1;
+
+    $sql = "INSERT INTO events (organizer_id, title, description, date, start_time, end_time, location, capacity, category) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if ( ! mysqli_stmt_prepare($stmt, $sql)) {
+        die(mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param($stmt, "issssssii", $organizer_id, $title, $description, $date, $start_time, $end_time, $location, $capacity, $category);
+
+    mysqli_stmt_execute($stmt);
+
+    echo "Event added";
+    header("Location: Dashboard.html");
+
+
+
+    /*
+    $sql = "INSERT INTO events (organizer_id, title, description, date, start_time, end_time, location, capacity) 
+            VALUES ($organizer_id, '$title', '$description', $date, $start_time, $end_time, '$location', $capacity)";
+    
     $query_run = mysqli_query($conn, $sql);
 
     if($query_run)
@@ -40,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION['status'] = "Date values Inserting Failed";
         header("Location: Dashboard.html");
     }
-
+    */
 }
 
 ?>
