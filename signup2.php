@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["first_name"]))){
         $fname_err = "Please enter your first name.";
     } elseif(!preg_match('/^[a-zA-Z -]+$/', trim($_POST["first_name"]))){
-        $username_err = "Name can only contain letters and hyphens(-).";
+        $fname_err = "Name can only contain letters and hyphens(-).";
     } else{
         // Prepare a select statement
         $sql = "SELECT first_name FROM users WHERE first_name = ?";
