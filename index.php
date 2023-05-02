@@ -61,7 +61,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["email"] = $email;                            
+                            $_SESSION["email"] = $email;   
+                            
+                            $query1 = mysqli_query($conn, "select * from users where email='$email'");
+                            $row1 = mysqli_fetch_array($query1);
+
+                            $_SESSION["UID"] = $row1['UID'];
+                            $_SESSION["first_name"] = $row1['first_name']; 
                             
                             // Redirect user to welcome page
                             header("location: Dashboard.html");    //need to change this to be like dashboard or home page
