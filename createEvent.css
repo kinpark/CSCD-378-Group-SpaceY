@@ -10,3 +10,41 @@ div {
  body {
    background: lightblue;
 }
+
+.topNav {
+   background-color: darkblue;
+   overflow: hidden;
+   position: relative;
+   padding: 10px;
+}
+
+.topNav #myLinks {
+   display: none;
+}
+
+.topNav a {
+   color: white;
+   padding: 14px 16px;
+   text-decoration: none;
+   font-size: 17px;
+   display: block;
+}
+
+.topNav a.icon {
+   background: black;
+   display: block;
+   position: absolute;
+   right: 0;
+   top: 0;
+}
+
+.topNav a:hover {
+   background-color: #ddd;
+   color: black;
+}
+
+.active {
+   background-color: darkblue;
+   color: white;
+   padding: 4px;
+}

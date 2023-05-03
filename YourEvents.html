@@ -3,11 +3,36 @@
     <head>
         <title>YourEvents</title>
         <link rel="stylesheet" href="YourEvents.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-    <header>
-        <h1>Your Created Events</h1>
-    </header>
     <body>
-        
+        <div class="topNav">
+            <div class="active">Your Events</div>
+            <div id="myLinks">
+                <a href='Dashboard.html'>
+                    Dashboard
+                </a>
+                <a href='search.html'>
+                    Search Events
+                </a>
+                <a href='createEvent.html'>
+                    Create Event
+                </a>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+        <h1>Your Created Events</h1>
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myLinks");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+            }
+        </script>
     </body>
 </html>
