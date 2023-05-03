@@ -8,8 +8,26 @@
 <head>
    <title>Create Event</title>
    <link rel="stylesheet" href="createEvent.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <div class="topNav">
+        <div class="active">Create Event</div>
+        <div id="myLinks">
+            <a href='Dashboard.html'>
+                Dashboard
+            </a>
+            <a href='YourEvents.html'>
+                Your Events
+            </a>
+            <a href='search.html'>
+                Search Events
+            </a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
    <h1>Create Event</h1>
    
    <!-- Add the form below -->
@@ -55,11 +73,16 @@
         <div><input type="submit"></div>
     </form>
    
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
 </body>
-    <!--// First create a SQL Query and obtain the row 
-    // select dropdown_items from table
-    // Send this as an array json to JavaScript
-    // Access it with jQuery & Ajax in Javascript, and then in a for loop print it out as HTML 
-    // https://www.w3schools.com/html/html_form_elements.asp-->
 
 </html>
