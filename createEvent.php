@@ -23,6 +23,9 @@
             <a href='search.html'>
                 Search Events
             </a>
+            <a href="logout.php">
+                    Sign Out 
+                </a>
         </div>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
