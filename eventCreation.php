@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_stmt_execute($stmt);
 
     echo "Event added";
-    header("Location: Dashboard.html");
+    header("Location: Dashboard.php");
 
 
 
@@ -63,12 +63,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($query_run)
     {
         $_SESSION['status'] = "Date values Inserted";
-        header("Location: Dashboard.html");
+        header("Location: Dashboard.php");
     }
     else
     {
         $_SESSION['status'] = "Date values Inserting Failed";
-        header("Location: Dashboard.html");
+        header("Location: Dashboard.php");
     }
     */
 }

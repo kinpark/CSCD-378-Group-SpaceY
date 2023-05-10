@@ -1,3 +1,14 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
     <head>
@@ -9,10 +20,10 @@
         <div class="topNav">
             <div class="active">Your Events</div>
             <div id="myLinks">
-                <a href='Dashboard.html'>
+                <a href='Dashboard.php'>
                     Dashboard
                 </a>
-                <a href='search.html'>
+                <a href='search.php'>
                     Search Events
                 </a>
                 <a href='createEvent.php'>

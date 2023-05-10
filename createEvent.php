@@ -23,7 +23,7 @@
     <div class="topNav">
         <div class="active">Create Event</div>
         <div id="myLinks">
-            <a href='Dashboard.html'>
+            <a href='Dashboard.php'>
                 Dashboard
             </a>
             <a href='YourEvents.html'>

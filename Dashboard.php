@@ -20,10 +20,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="topNav">
             <div class="active">Dashboard</div>
             <div id="myLinks">
-                <a href='search.html'>
+                <a href='search.php'>
                     Search Events
                 </a>
-                <a href='YourEvents.html'>
+                <a href='YourEvents.php'>
                     Your Events
                 </a>
                 <a href='createEvent.php'>
