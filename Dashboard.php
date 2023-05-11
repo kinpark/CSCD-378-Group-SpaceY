@@ -96,7 +96,8 @@ $result = mysqli_query($conn, $query);
                     </div>
                 </div>
             </div>            
-        </div>    
+        </div>  
+          
         <script>
             function myFunction() {
                 var x = document.getElementById("myLinks");
