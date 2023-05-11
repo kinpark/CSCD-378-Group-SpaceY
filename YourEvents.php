@@ -10,7 +10,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 require_once "config.php";
 $UID = $_SESSION["UID"];
-$query = "SELECT title, description, date, start_time, end_time, location FROM events WHERE organizer_id='$UID' ORDER BY date";
+$query = "SELECT * FROM events WHERE organizer_id='$UID' ORDER BY date";
 $result = mysqli_query($conn, $query);
 
 ?>
@@ -50,7 +50,7 @@ $result = mysqli_query($conn, $query);
                 <div class = "col">
                     <div class = "card">
                         <div class = "card-header">
-                            <h2>Events you are participating in: </h2>
+                            <h2>Events you have created: </h2>
                         </div>
                         <div class = "card-body">
                             <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
@@ -80,7 +80,7 @@ $result = mysqli_query($conn, $query);
                                     <td><?php echo $row["start_time"]; ?></td>
                                     <td><?php echo $row["end_time"]; ?></td>
                                     <td><?php echo $row["location"]; ?></td>
-                                    <td><a href = "edit.php?id=<?php echo $row['EID']; ?>" class="btn btn-primary">Edit</a></td>
+                                    <td><a href = "edit.php?EID=<?php echo $row['EID']; ?>" class="btn btn-primary">Edit</a></td>
                                     <td><a href = "#" class="btn btn-danger">Delete</a></td>
                                 </tr>    
                                 <?php    
