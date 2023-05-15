@@ -13,10 +13,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Edit</title>
+    <title>Edit</title>
+    <link rel="stylesheet" href="createEvent.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<h2>Edit</h2>
+	<h2>Edit Event</h2>
 
     <form method="POST" action="update.php?EID=<?php echo $EID; ?>" enctype="multipart/form-data">
         <div>

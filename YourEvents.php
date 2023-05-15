@@ -81,7 +81,7 @@ $result = mysqli_query($conn, $query);
                                     <td><?php echo $row["end_time"]; ?></td>
                                     <td><?php echo $row["location"]; ?></td>
                                     <td><a href = "edit.php?EID=<?php echo $row['EID']; ?>" class="btn btn-primary">Edit</a></td>
-                                    <td><a href = "#" class="btn btn-danger">Delete</a></td>
+                                    <td><a href = "delete.php?EID=<?php echo $row['EID']; ?>" class="btn btn-danger">Delete</a></td>
                                 </tr>    
                                 <?php    
                                         }
