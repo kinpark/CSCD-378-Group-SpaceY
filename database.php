@@ -201,7 +201,7 @@
             echo "Error updating database: " . $conn->error;
         }
     }
-    $sql = "UPDATE users SET role='admin' where first_name='admin';";
+    $sql = "UPDATE users SET role admin where first_name='admin'";
     if($conn->query($sql) === TRUE){
         echo "Table users updated successfully";
     } else{

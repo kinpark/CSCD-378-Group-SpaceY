@@ -1,14 +1,27 @@
-div {
-    margin-bottom: 10px;
- }
- 
- label {
-    display: inline-block;
-    width: 100px;
- }
-
- body {
+body {
    background: lightblue;
+   text-align: center;
+}
+
+h1 {
+   text-align: center;
+}
+
+.searchButton {
+   float: right;
+}
+
+.yourEventsButton {
+   float: right;
+}
+
+.createEventButton {
+   float: right;
+}
+
+header {
+   background: darkblue;
+   color: white;
 }
 
 .topNav {
