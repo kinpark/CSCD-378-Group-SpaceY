@@ -27,3 +27,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </p>
 </body>
 </html>
+
+<style>
+    body {
+        background: lightblue;
+    }
+</style>
