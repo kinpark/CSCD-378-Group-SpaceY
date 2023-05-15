@@ -2,7 +2,7 @@
 
 	require_once 'config.php';
 
-    $resultSet = $conn->query("SELECT name FROM event_categories");
+    $resultSet = $conn->query("SELECT * FROM event_categories");
 
     $EID = $_GET["EID"];
 	$query = "SELECT * FROM events WHERE EID='$EID'";
@@ -53,9 +53,12 @@
                 <?php
                 while($rows = $resultSet->fetch_assoc()){
                     $category = $rows['name'];
-                    //$curCat = $row['category'];
-                    echo "<option value='$category'>$category</option>";
-                    //echo "<option value='$category', selected="($curCat == $category)">$category</option>";
+                    if($row['category'] == $rows['Cat_id']){
+                        echo "<option selected='selected' value='$category'>$category</option>";
+                    }
+                    else {
+                        echo "<option value='$category'>$category</option>";
+                    }
                 }
                 ?>
         </div>
