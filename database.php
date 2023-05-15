@@ -182,6 +182,32 @@
         echo "Error updating database: " . $conn->error;
     }
 
+
+    //create admin account
+    $sql = "INSERT INTO users (first_name, last_name, password, email) VALUES (?, ?, ?, ?)";
+    
+    if($stmt = $conn->prepare($sql)){
+        // Bind variables to the prepared statement as parameters
+        $stmt->bind_param("ssss", $param_fname, $param_lname, $param_password, $param_email);
+        
+        $param_fname = "admin";
+        $param_lname = "admin";
+        $param_password = password_hash("admin1", PASSWORD_DEFAULT); // Creates a password hash
+        $param_email = "admin@admin.com";
+
+        if($stmt->execute()){
+            echo "Admin created"
+        } else{
+            echo "Error updating database: " . $conn->error;
+        }
+    }
+    $sql = "UPDATE users SET role admin where first_name='admin'";
+    if($conn->query($sql) === TRUE){
+        echo "Table users updated successfully";
+    } else{
+        echo "Error updating database: " . $conn->error;
+    }
+
     $conn->close();
 ?>
 
