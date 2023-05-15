@@ -88,3 +88,13 @@ function function_alert($message) {
         </div>
     </body>
 </html>
+
+<style>
+    body {
+        background: lightblue;
+    }
+
+    .resetPass {
+        border: 1px solid black;
+    }
+</style>

@@ -136,3 +136,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 </body>
 </html>
+
+<style>
+    body {
+        background: lightblue;
+    }
+</style>
