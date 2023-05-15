@@ -7,6 +7,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
+require_once "config.php";
+$UID = $_SESSION["UID"];
+$query = "SELECT * FROM events ORDER BY date";
+$result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -38,17 +43,57 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             </a>
         </div>
 
-        <form method="POST" action="database.php" enctype="multipart/form-data">
+        <form method="POST" action="eventSearch.php" enctype="multipart/form-data">
             <div>
                 <label for="searchBy">Search By:</label>
-                <input type="text" name="searchBy" id="searchBy" required>
+                <select name="searchBy" id="searchBy" required>
+                    <option value="title">Event Name</option>
+                    <option value="organizer_id">Organizer</option>
+                    <option value="date">Date</option>
+                    <option value="category">Category</option>
+                </select> 
             </div>
             <div>
                 <input type="text" name="searchBar" id="searchBar" required>
             </div>
             <div><input type="submit"></div>
         </form>
-        <h2>Results</h2>
+        <h2>All Events</h2>
+            <div class = "card-body">
+                <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
+                    <tr class = "table-header", style = "background-color: turquoise">
+                        <td> Events </td>
+                        <td> Description </td>
+                        <td> Date </td>
+                        <td> Start Time </td>
+                        <td> End Time </td>
+                        <td> Location </td>
+                        <td> Register? </td>
+                    </tr>
+                    <tr>
+                    <?php
+                        if (mysqli_num_rows($result)>0){
+                            while($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                                <td><?php echo $row["title"]; ?></td>
+                                <td><?php echo $row["description"]; ?></td>
+                                <td><?php echo $row["date"]; ?></td>
+                                <td><?php echo $row["start_time"]; ?></td>
+                                <td><?php echo $row["end_time"]; ?></td>
+                                <td><?php echo $row["location"]; ?></td>
+                                <td><a href = "register.php?EID=<?php echo $row['EID']; ?>" class="btn btn-primary">Register</a></td>
+                    </tr>    
+                    <?php    
+                            }
+                        }
+                        else {
+                            echo "No events found";
+                        }
+                        $conn->close(); 
+                    ?>
+                    </tr>
+                </table>     
+            </div>
 
         <script>
             function myFunction() {
