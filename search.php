@@ -48,7 +48,7 @@ $result = mysqli_query($conn, $query);
                 <label for="searchBy">Search By:</label>
                 <select name="searchBy" id="searchBy" required>
                     <option value="title">Event Name</option>
-                    <option value="organizer_id">Organizer</option>
+                    <option value="organizer_id">Organizer Name</option>
                     <option value="date">Date</option>
                     <option value="category">Category</option>
                 </select> 

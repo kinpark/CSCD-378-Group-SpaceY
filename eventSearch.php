@@ -11,28 +11,114 @@
 
     if($searchBy = "title"){
         $query = "SELECT * FROM events WHERE title LIKE '%"$searchBar"%'";
-        $rawResults = mysqli_query($conn, $query);
+        $result = mysqli_query($conn, $query);
     }
     if($searchBy = "organizer_id"){
-        
+        $searchBar = explode(" ", $searchBar);
+        //currently working here
+
     }
     if($searchBy = "date"){
-        
+        $query = "SELECT * FROM events WHERE title LIKE '%"$searchBar"%'";
+
     }
     if($searchBy = "category"){
-        
+        $query = "SELECT * FROM events WHERE title LIKE '%"$searchBar"%'";
+        $result = mysqli_query($conn, $query);
     }
-    /*
-    if (mysqli_num_rows($rawResults)>0){
-        while($row = mysqli_fetch_assoc($result)) {
-
-        }
-    }
-    else {
-        echo "No events scheduled. Go find some!";
-    }
-
-    $conn->close(); 
-    */
     
 ?>
+
+<!DOCTYPE html>
+<html lang="en"> 
+    <head>
+        <title>Search</title>
+        <link rel="stylesheet" href="search.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="topNav">
+            <div class="active">Search Events</div>
+            <div id="myLinks">
+                <a href='Dashboard.php'>
+                    Dashboard
+                </a>
+                <a href='YourEvents.php'>
+                    Your Events
+                </a>
+                <a href='createEvent.php'>
+                    Create Event
+                </a>
+                <a href="logout.php">
+                    Sign Out 
+                </a>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+        <form method="POST" action="eventSearch.php" enctype="multipart/form-data">
+            <div>
+                <label for="searchBy">Search By:</label>
+                <select name="searchBy" id="searchBy" required>
+                    <option value="title">Event Name</option>
+                    <option value="organizer_id">Organizer Name</option>
+                    <option value="date">Date</option>
+                    <option value="category">Category</option>
+                </select> 
+            </div>
+            <div>
+                <input type="text" name="searchBar" id="searchBar" required>
+            </div>
+            <div><input type="submit"></div>
+        </form>
+        <h2>Found Events</h2>
+            <div class = "card-body">
+                <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
+                    <tr class = "table-header", style = "background-color: turquoise">
+                        <td> Events </td>
+                        <td> Description </td>
+                        <td> Date </td>
+                        <td> Start Time </td>
+                        <td> End Time </td>
+                        <td> Location </td>
+                        <td> Register? </td>
+                    </tr>
+                    <tr>
+                    <?php
+                        if (mysqli_num_rows($result)>0){
+                            while($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                                <td><?php echo $row["title"]; ?></td>
+                                <td><?php echo $row["description"]; ?></td>
+                                <td><?php echo $row["date"]; ?></td>
+                                <td><?php echo $row["start_time"]; ?></td>
+                                <td><?php echo $row["end_time"]; ?></td>
+                                <td><?php echo $row["location"]; ?></td>
+                                <td><a href = "register.php?EID=<?php echo $row['EID']; ?>" class="btn btn-primary">Register</a></td>
+                    </tr>    
+                    <?php    
+                            }
+                        }
+                        else {
+                            echo "No events found";
+                        }
+                        $conn->close(); 
+                    ?>
+                    </tr>
+                </table>     
+            </div>
+
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myLinks");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>
