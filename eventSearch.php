@@ -15,7 +15,7 @@
     }
     if($searchBy = "organizer_id"){
         $searchBar = explode(" ", $searchBar);
-        //currently working here
+        
 
     }
     if($searchBy = "date"){
