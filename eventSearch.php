@@ -15,12 +15,14 @@
     }
     if($searchBy = "organizer_id"){
         $searchBar = explode(" ", $searchBar);
-        
-
+        $queryForUID = "SELECT UID FROM events JOIN users ON organizer_id=UID WHERE first_name like '%"$searchBar[0]"%' and last_name like '%"$searchBar[1]"%' group by UID;"
+        $UIDresult = mysqli_query($conn, $query);
+        $query = "SELECT * FROM events WHERE UID=$UIDresult"
+        $result = mysqli_query($conn, $query);
     }
     if($searchBy = "date"){
-        $query = "SELECT * FROM events WHERE title LIKE '%"$searchBar"%'";
-
+        $query = "SELECT * FROM events WHERE date LIKE '%"$searchBar"%'";
+        $result = mysqli_query($conn, $query);
     }
     if($searchBy = "category"){
         $query = "SELECT * FROM events WHERE title LIKE '%"$searchBar"%'";
@@ -64,7 +66,7 @@
                 <select name="searchBy" id="searchBy" required>
                     <option value="title">Event Name</option>
                     <option value="organizer_id">Organizer Name</option>
-                    <option value="date">Date</option>
+                    <option value="date">Date (yy-mm-dd)</option>
                     <option value="category">Category</option>
                 </select> 
             </div>
