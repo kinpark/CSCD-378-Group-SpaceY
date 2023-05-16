@@ -27,6 +27,10 @@
             $query = "SELECT * FROM events WHERE title LIKE '%".$searchBar."%'";
             $result = mysqli_query($conn, $query);
         }
+        if($searchBy === "no_filter"){
+            $query = "SELECT * FROM events ORDER BY date";
+            $result = mysqli_query($conn, $query);
+        }
         
     }   
     
@@ -65,6 +69,7 @@
             <div>
                 <label for="searchBy">Search By:</label>
                 <select name="searchBy" id="searchBy" required>
+                    <option value="no_filter">No Filter</option>
                     <option value="title">Event Name</option>
                     <option value="organizer_id">Organizer Name</option>
                     <option value="date">Date (yy-mm-dd)</option>
