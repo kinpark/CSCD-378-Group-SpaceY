@@ -1,33 +1,34 @@
 <?php
     include_once "config.php";
 
-    $searchBy = $_GET['searchBy'];
-    $searchBar = $_GET['searchBar'];
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $searchBy = $_POST['searchBy'];
+        $searchBar = $_POST['searchBar'];
 
-    //change special characters
-    $searchBar = htmlspecialchars($searchBar);
-    //sql injection prevention
-    $searchBar = mysqli_real_escape_string($searchBar);
+        //change special characters
+        $searchBar = htmlspecialchars($searchBar);
+        //sql injection prevention
+        $searchBar = mysqli_real_escape_string($conn, $searchBar);
 
-    if($searchBy = "title"){
-        $query = "SELECT * FROM events WHERE title LIKE '%"$searchBar"%'";
-        $result = mysqli_query($conn, $query);
-    }
-    if($searchBy = "organizer_id"){
-        $searchBar = explode(" ", $searchBar);
-        $queryForUID = "SELECT UID FROM events JOIN users ON organizer_id=UID WHERE first_name like '%"$searchBar[0]"%' and last_name like '%"$searchBar[1]"%' group by UID;"
-        $UIDresult = mysqli_query($conn, $query);
-        $query = "SELECT * FROM events WHERE UID=$UIDresult"
-        $result = mysqli_query($conn, $query);
-    }
-    if($searchBy = "date"){
-        $query = "SELECT * FROM events WHERE date LIKE '%"$searchBar"%'";
-        $result = mysqli_query($conn, $query);
-    }
-    if($searchBy = "category"){
-        $query = "SELECT * FROM events WHERE title LIKE '%"$searchBar"%'";
-        $result = mysqli_query($conn, $query);
-    }
+        if($searchBy === "title"){
+            $query = "SELECT * FROM events WHERE title LIKE '%".$searchBar."%'";
+            $result = mysqli_query($conn, $query);
+        }
+        if($searchBy === "organizer_id"){
+            $searchBar = explode(" ", $searchBar);
+            $query = "SELECT * FROM events JOIN users ON organizer_id=UID WHERE first_name like '%".$searchBar[0]."%' and last_name like '%".$searchBar[1]."%'";
+            $result = mysqli_query($conn, $query);
+        }
+        if($searchBy === "date"){
+            $query = "SELECT * FROM events WHERE date LIKE '%".$searchBar."%'";
+            $result = mysqli_query($conn, $query);
+        }
+        if($searchBy === "category"){
+            $query = "SELECT * FROM events WHERE title LIKE '%".$searchBar."%'";
+            $result = mysqli_query($conn, $query);
+        }
+        
+    }   
     
 ?>
 
