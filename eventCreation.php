@@ -35,21 +35,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     while ($row = $QueryForCat_id->fetch_assoc()){
         $cat_id = $row["Cat_id"];
     }
-
+    //insert into events
     $sql = "INSERT INTO events (organizer_id, title, description, date, start_time, end_time, location, capacity, category) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
     $stmt = mysqli_stmt_init($conn);
-
     if ( ! mysqli_stmt_prepare($stmt, $sql)) {
         die(mysqli_error($conn));
     }
-
     mysqli_stmt_bind_param($stmt, "issssssii", $organizer_id, $title, $description, $date, $start_time, $end_time, $location, $capacity, $cat_id);
+    mysqli_stmt_execute($stmt);
+    
+    //register for your own event
+    $UID = $_SESSION["UID"];
+    $queryForEID = $conn->query("SELECT EID FROM events WHERE title='$title' AND description='$description'
+            AND date='$date' AND start_time='$start_time' AND end_time='$end_time'
+            AND location='$location' AND capacity='$capacity' AND category='$cat_id'
+            AND organizer_id='$UID'");
+    $EID = 0;
+    while ($row = $queryForEID->fetch_assoc()){
+        $EID = $row["EID"];
+    }
 
+    $sql = "INSERT INTO registration (user_id, event_id) VALUES (?, ?)";
+    $stmt = mysqli_stmt_init($conn);
+    if ( ! mysqli_stmt_prepare($stmt, $sql)) {
+        die(mysqli_error($conn));
+    }
+    mysqli_stmt_bind_param($stmt, "ii", $UID, $EID);
     mysqli_stmt_execute($stmt);
 
-    echo "Event added";
     header("Location: Dashboard.php");
 
 

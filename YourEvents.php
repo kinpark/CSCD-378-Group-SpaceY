@@ -87,7 +87,7 @@ $result = mysqli_query($conn, $query);
                                         }
                                     }
                                     else {
-                                        echo "No events scheduled. Go find some!";
+                                        echo "You have no created events";
                                     }
 
                                     $conn->close(); 
