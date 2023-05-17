@@ -80,7 +80,7 @@ $result = mysqli_query($conn, $query);
                                     <td><?php echo $row["start_time"]; ?></td>
                                     <td><?php echo $row["end_time"]; ?></td>
                                     <td><?php echo $row["location"]; ?></td>
-                                    <td><a href = "#" class="btn btn-danger">Leave</a></td>
+                                    <td><a href = "leaveEvent.php?EID=<?php echo $row['EID']; ?>" class="btn btn-danger">Leave</a></td>
                                 </tr>    
                                 <?php    
                                         }
