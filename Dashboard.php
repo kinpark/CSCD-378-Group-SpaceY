@@ -11,6 +11,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 $UID = $_SESSION["UID"];
 $query = "SELECT title, description, date, start_time, end_time, location FROM events WHERE organizer_id='$UID' ORDER BY date";
+//$query = "SELECT title, description, date, start_time, end_time, location FROM events JOIN registration ON EID=event_id WHERE user_id='$UID' AND status='Registered' ORDER BY date;";
 $result = mysqli_query($conn, $query);
 
 ?>
