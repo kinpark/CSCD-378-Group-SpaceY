@@ -54,7 +54,7 @@ $result = mysqli_query($conn, $query);
                             <h2>Events you are participating in: </h2>
                         </div>
                         <div class = "card-body">
-                            <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
+                            <table class = "table", border = "4", style = "border-color: darkblue ; margin-left: auto ; margin-right: auto ;", width = 75%>
                                 <tr class = "table-header", style = "background-color: turquoise">
                                     <td> Events </td>
                                     <td> Description </td>
@@ -115,7 +115,7 @@ $result = mysqli_query($conn, $query);
                                     <h4>These events were full when you tried to register for them. Click the Register button again to try and register for the event. If nothing changes the event is still full.</h4>
                                 </div>
                                 <div >
-                                    <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
+                                    <table class = "table", border = "4", style = "border-color: darkblue ; margin-left: auto ; margin-right: auto ;", width = 75%>
                                         <tr class = "table-header", style = "background-color: turquoise">
                                             <td> Events </td>
                                             <td> Description </td>

@@ -59,9 +59,9 @@ $result = mysqli_query($conn, $query);
             </div>
             <div><input type="submit"></div>
         </form>
-        <h2>All Events</h2>
+        <h2 style="text-align:center;">All Events</h2>
             <div class = "card-body">
-                <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
+                <table class = "table", border = "4", style = "border-color: darkblue ; margin-left: auto ; margin-right: auto ;", width = 75%>
                     <tr class = "table-header", style = "background-color: turquoise">
                         <td> Events </td>
                         <td> Description </td>
