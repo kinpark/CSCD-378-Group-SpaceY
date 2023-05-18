@@ -32,7 +32,23 @@ else {
 
     mysqli_stmt_execute($stmt);
 }
-    
+
+$query = "SELECT capacity FROM events WHERE EID='$EID'";
+$result = mysqli_query($conn, $query);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $capacity = $row["capacity"];
+}
+echo $capacity;
+
+$query = "SELECT * FROM registration WHERE event_id='$EID'";
+$result = mysqli_query($conn, $query);
+if(mysqli_num_rows($result) > $capacity) {
+    $sql = "UPDATE registration SET status='Waitlist' WHERE event_id='$EID' and user_id='$UID'";
+    mysqli_query($conn, $sql);
+    echo "Event capacity is full, you have been waitlisted.";
+}
+
 header("Location: Dashboard.php");
 
 //Check if already registered for specific event
