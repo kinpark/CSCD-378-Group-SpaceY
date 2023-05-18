@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 echo $capacity;
 
-$query = "SELECT * FROM registration WHERE event_id='$EID'";
+$query = "SELECT * FROM registration WHERE event_id='$EID' AND status='Registered'";
 $result = mysqli_query($conn, $query);
 if(mysqli_num_rows($result) > $capacity) {
     $sql = "UPDATE registration SET status='Waitlist' WHERE event_id='$EID' and user_id='$UID'";

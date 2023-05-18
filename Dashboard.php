@@ -89,7 +89,7 @@ $result = mysqli_query($conn, $query);
                                         echo "No events scheduled. Go find some!";
                                     }
 
-                                    $conn->close(); 
+                                    //$conn->close(); 
                                 ?>
                                 </tr>
                             </table>     
@@ -99,6 +99,71 @@ $result = mysqli_query($conn, $query);
             </div>            
         </div>  
           
+        <?php
+            $query2 = "SELECT * FROM registration WHERE user_id='$UID' AND status='Waitlist'";
+            $result2 = mysqli_query($conn, $query2);
+            if (mysqli_num_rows($result2) > 0) {
+                $query3 = "SELECT * FROM events JOIN registration ON EID=event_id WHERE user_id='$UID' AND registration.status='Waitlist' ORDER BY date;";
+                $result3 = mysqli_query($conn, $query3); 
+        ?>
+                <div >
+                    <div >
+                        <div >
+                            <div >
+                                <div id="containter2">
+                                    <h2>Events you are waitlisted for: </h2>
+                                    <h4>These events were full when you tried to register for them. Click the Register button again to try and register for the event. If nothing changes the event is still full.</h4>
+                                </div>
+                                <div >
+                                    <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
+                                        <tr class = "table-header", style = "background-color: turquoise">
+                                            <td> Events </td>
+                                            <td> Description </td>
+                                            <td> Date </td>
+                                            <td> Start Time </td>
+                                            <td> End Time </td>
+                                            <td> Location </td>
+                                            <td> Try and Register Again? </td>
+                                        </tr>
+                                        <tr>
+                                        <?php
+                                            if (mysqli_num_rows($result3)>0){
+                                                while($row = mysqli_fetch_assoc($result3)) {
+                                        ?>
+                                            <?php   //idk if i need to get rid of this php here.
+                                                    //echo "Event: " . $row["title"] . " - Event Description: " . $row["description"] . 
+                                                    //" - Date: " . $row["date"] . " - Start time: " . $row["start_time"] . " - End Time: " . 
+                                                    //$row["end_time"] . " - Location: " . $row["location"]. "<br>";
+                                            ?>
+                                            <td><?php echo $row["title"]; ?></td>
+                                            <td><?php echo $row["description"]; ?></td>
+                                            <td><?php echo $row["date"]; ?></td>
+                                            <td><?php echo $row["start_time"]; ?></td>
+                                            <td><?php echo $row["end_time"]; ?></td>
+                                            <td><?php echo $row["location"]; ?></td>
+                                            <td><a href = "register.php?EID=<?php echo $row['EID']; ?>" class="btn btn-danger">Register</a></td>
+                                        </tr>    
+                                        <?php    
+                                                }
+                                            }
+                                            else {
+                                                echo "No events waitlisted.";
+                                            }
+
+                                            //$conn->close(); 
+                                        ?>
+                                        </tr>
+                                    </table>     
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+            <?php
+            }
+            $conn->close();
+            ?>
+
         <script>
             function myFunction() {
                 var x = document.getElementById("myLinks");
