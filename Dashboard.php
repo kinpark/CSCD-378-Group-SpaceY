@@ -124,6 +124,7 @@ $result = mysqli_query($conn, $query);
                                             <td> End Time </td>
                                             <td> Location </td>
                                             <td> Try and Register Again? </td>
+                                            <td> Leave Waitlist </td>
                                         </tr>
                                         <tr>
                                         <?php
@@ -142,6 +143,7 @@ $result = mysqli_query($conn, $query);
                                             <td><?php echo $row["end_time"]; ?></td>
                                             <td><?php echo $row["location"]; ?></td>
                                             <td><a href = "register.php?EID=<?php echo $row['EID']; ?>" class="btn btn-danger">Register</a></td>
+                                            <td><a href = "leaveEvent.php?EID=<?php echo $row['EID']; ?>" class="btn btn-danger">Leave</a></td>
                                         </tr>    
                                         <?php    
                                                 }
