@@ -13,17 +13,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
  
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    //print_r($_POST);
-
     $title = $_POST['title'];
     $description = $_POST['description'];
     $date = date('Y-m-d', strtotime($_POST['date']));
 
     $start_time = ($_POST['startTime']);
     $end_time = ($_POST['endTime']);
-
-    //$start_time = $_POST['startTime'];
-    //$end_time = $_POST['endTime'];
 
     $location = $_POST['location'];
     $capacity = $_POST['capacity'];
@@ -46,11 +41,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_stmt_execute($stmt);
     
     //register for your own event
+    //THERE IS PROBLEM IF APOSTROPHE IS IN DESCRIPTION, TITLE, OR LOCATION when searching for EID
+    //title, description, location all need to be able to have apostrophe
+        /*
+        $queryForEID = $conn->query("SELECT EID FROM events WHERE title='$title' AND description='$description'
+        AND date='$date' AND start_time='$start_time' AND end_time='$end_time'
+        AND location='$location' AND capacity='$capacity' AND category='$cat_id'
+        AND organizer_id='$UID'");
+        */
+    //new attempt -- couldn't get this to work
+        // $stmt = $conn->prepare($queryForEID);
+        // $stmt->bind_param('ssssssiii', $title, $description, $date, $start_time, $end_time, $location, $capacity, $category, $organizer_id);
+        // $stmt->execute();
+        // $result = $stmt->get_result();
+    //different attempt since each newly created event must have the highest EID
+
     $UID = $_SESSION["UID"];
-    $queryForEID = $conn->query("SELECT EID FROM events WHERE title='$title' AND description='$description'
-            AND date='$date' AND start_time='$start_time' AND end_time='$end_time'
-            AND location='$location' AND capacity='$capacity' AND category='$cat_id'
-            AND organizer_id='$UID'");
+    $queryForEID = $conn->query("SELECT EID FROM events WHERE EID=(SELECT max(EID) FROM events)");
     $EID = 0;
     while ($row = $queryForEID->fetch_assoc()){
         $EID = $row["EID"];
@@ -66,25 +73,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     header("Location: Dashboard.php");
 
-
-
-    /*
-    $sql = "INSERT INTO events (organizer_id, title, description, date, start_time, end_time, location, capacity) 
-            VALUES ($organizer_id, '$title', '$description', $date, $start_time, $end_time, '$location', $capacity)";
-    
-    $query_run = mysqli_query($conn, $sql);
-
-    if($query_run)
-    {
-        $_SESSION['status'] = "Date values Inserted";
-        header("Location: Dashboard.php");
-    }
-    else
-    {
-        $_SESSION['status'] = "Date values Inserting Failed";
-        header("Location: Dashboard.php");
-    }
-    */
 }
 
 ?>
