@@ -26,10 +26,10 @@
             <a href='Dashboard.php'>
                 Dashboard
             </a>
-            <a href='YourEvents.html'>
+            <a href='YourEvents.php'>
                 Your Events
             </a>
-            <a href='search.html'>
+            <a href='search.php'>
                 Search Events
             </a>
             <a href="logout.php">

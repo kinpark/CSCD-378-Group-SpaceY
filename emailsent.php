@@ -22,3 +22,9 @@
         </div>
     </body>
 </html>
+
+<style>
+    body {
+        background: lightblue;
+    }
+</style>
