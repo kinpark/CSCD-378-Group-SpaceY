@@ -67,7 +67,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $row1 = mysqli_fetch_array($query1);
 
                             $_SESSION["UID"] = $row1['UID'];
-                            $_SESSION["first_name"] = $row1['first_name'];     
+                            $_SESSION["first_name"] = $row1['first_name'];   
+                            //$_SESSION["role"] = $row1['role'];  
 
                             // logging: login
                             $UID=$_SESSION["UID"];

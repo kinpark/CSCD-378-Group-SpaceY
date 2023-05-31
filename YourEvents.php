@@ -13,6 +13,13 @@ $UID = $_SESSION["UID"];
 $query = "SELECT * FROM events WHERE organizer_id='$UID' ORDER BY date";
 $result = mysqli_query($conn, $query);
 
+// find the role of user
+$queryForRole = $conn->query("SELECT role FROM users WHERE UID=$UID");
+$role = null;
+while ($row = $queryForRole->fetch_assoc()){
+    $role = $row["role"];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +60,7 @@ $result = mysqli_query($conn, $query);
                             <h2>Events you have created: </h2>
                         </div>
                         <div class = "card-body">
-                            <table class = "table", border = "4", style = "border-color: darkblue", width = 100%>
+                            <table class = "table", border = "4", style = "border-color: darkblue ; margin-left: auto ; margin-right: auto ;", width = 75%>
                                 <tr class = "table-header", style = "background-color: turquoise">
                                     <td> Events </td>
                                     <td> Description </td>
@@ -90,7 +97,7 @@ $result = mysqli_query($conn, $query);
                                         echo "You have no created events";
                                     }
 
-                                    $conn->close(); 
+                                    //$conn->close(); 
                                 ?>
                                 </tr>
                             </table>     
@@ -99,6 +106,74 @@ $result = mysqli_query($conn, $query);
                 </div>
             </div>            
         </div>
+
+        <?php
+            $query2 = "SELECT * FROM events";
+            $result2 = mysqli_query($conn, $query2);
+            if (mysqli_num_rows($result2) > 0 && $role == 'admin') {
+                $query3 = "SELECT * FROM events";
+                $result3 = mysqli_query($conn, $query3); 
+        ?>
+                <div >
+                    <div >
+                        <div >
+                            <div >
+                                <div id="containter2">
+                                    <h2>All Events: </h2>
+                                    <h4>As an admin, you have the ability to monitor, edit, and delete other user's events. </h4>
+                                </div>
+                                <div >
+                                    <table class = "table", border = "4", style = "border-color: darkblue ; margin-left: auto ; margin-right: auto ;", width = 75%>
+                                        <tr class = "table-header", style = "background-color: turquoise">
+                                            <td> Events </td>
+                                            <td> Description </td>
+                                            <td> Date </td>
+                                            <td> Start Time </td>
+                                            <td> End Time </td>
+                                            <td> Location </td>
+                                            <td> Edit </td>
+                                            <td> Remove </td>
+                                        </tr>
+                                        <tr>
+                                        <?php
+                                            if (mysqli_num_rows($result3)>0){
+                                                while($row = mysqli_fetch_assoc($result3)) {
+                                        ?>
+                                            <?php   //idk if i need to get rid of this php here.
+                                                    //echo "Event: " . $row["title"] . " - Event Description: " . $row["description"] . 
+                                                    //" - Date: " . $row["date"] . " - Start time: " . $row["start_time"] . " - End Time: " . 
+                                                    //$row["end_time"] . " - Location: " . $row["location"]. "<br>";
+                                            ?>
+                                            <td><?php echo $row["title"]; ?></td>
+                                            <td><?php echo $row["description"]; ?></td>
+                                            <td><?php echo $row["date"]; ?></td>
+                                            <td><?php echo $row["start_time"]; ?></td>
+                                            <td><?php echo $row["end_time"]; ?></td>
+                                            <td><?php echo $row["location"]; ?></td>
+                                            <td><a href = "edit.php?EID=<?php echo $row['EID']; ?>" class="btn btn-primary">Edit</a></td>
+                                            <td><a href = "delete.php?EID=<?php echo $row['EID']; ?>" class="btn btn-danger">Delete</a></td>
+                                        </tr>    
+                                        <?php    
+                                                }
+                                            }
+                                            else {
+                                                echo "No events.";
+                                            }
+
+                                            //$conn->close(); 
+                                        ?>
+                                        </tr>
+                                    </table>     
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+            <?php
+            }
+            $conn->close();
+            ?>
+
 
         <script>
             function myFunction() {
