@@ -68,9 +68,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                             $_SESSION["UID"] = $row1['UID'];
                             $_SESSION["first_name"] = $row1['first_name']; 
+
+                            // logging: login
+                            $UID=$_SESSION["UID"];
+                            $EID=null;
+                            $action='login';
+                            //$ip_address=getenv("REMOTE_ADDR");
+                            $ip_address=$_SERVER['REMOTE_ADDR'];
+                            $conn->query("INSERT INTO log (user_id, event_id, action, ip_address) VALUES ('$UID', null, 'login', '$ip_address')");
                             
                             // Redirect user to welcome page
-                            header("location: Dashboard.php");    //need to change this to be like dashboard or home page
+                            header("location: Dashboard.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid email or password.";

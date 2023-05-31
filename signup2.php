@@ -145,6 +145,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Redirect to login page
+
+                // find the new UID assigned for logging
+                $queryForUID = $conn->query("SELECT UID FROM users WHERE UID=(SELECT max(UID) FROM users)");
+                $UID = 0;
+                while ($row = $queryForUID->fetch_assoc()){
+                    $UID = $row["UID"];
+                }
+                // logging: register
+                //$UID=$_SESSION["UID"];
+                //$EID=null;
+                //$ip_address=getenv("REMOTE_ADDR");
+                $ip_address=$_SERVER['REMOTE_ADDR'];
+                $conn->query("INSERT INTO log (user_id, event_id, action, ip_address) VALUES ('$UID', null, 'register', '$ip_address')");      
+
                 header("location: login.php");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";

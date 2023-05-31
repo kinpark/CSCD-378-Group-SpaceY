@@ -47,10 +47,23 @@ if(mysqli_num_rows($result) > $capacity) {
     $sql = "UPDATE registration SET status='Waitlist' WHERE event_id='$EID' and user_id='$UID'";
     mysqli_query($conn, $sql);
     echo "Event capacity is full, you have been waitlisted.";
+    // logging: add_to_waitlist
+    //$UID=$_SESSION["UID"];
+    //$EID=null;
+    //$ip_address=getenv("REMOTE_ADDR");
+    $ip_address=$_SERVER['REMOTE_ADDR'];
+    $conn->query("INSERT INTO log (user_id, event_id, action, ip_address) VALUES ('$UID', $EID, 'add_to_waitlist', '$ip_address')"); 
+    header("Location: Dashboard.php");
 }
-
-header("Location: Dashboard.php");
-
+else {
+    // logging: register_for_event
+    //$UID=$_SESSION["UID"];
+    //$EID=null;
+    //$ip_address=getenv("REMOTE_ADDR");
+    $ip_address=$_SERVER['REMOTE_ADDR'];
+    $conn->query("INSERT INTO log (user_id, event_id, action, ip_address) VALUES ('$UID', $EID, 'register_for_event', '$ip_address')"); 
+    header("Location: Dashboard.php");
+}
 //Check if already registered for specific event
 //if not registered create entry in registration
 //return to your registered events

@@ -30,6 +30,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     //$email_err = "This email is already in use.";
                     function_alert("Password recovery email has been sent.");
                     sleep(1);
+
+                    // logging: update_password
+                    //$UID=$_SESSION["UID"];
+                    //$EID=null;
+                    //$ip_address=getenv("REMOTE_ADDR");
+                    $queryForUID = $conn->query("SELECT UID FROM users WHERE email='$param_email'");
+                    $UID = 0;
+                    while ($row = $queryForUID->fetch_assoc()){
+                        $UID = $row["UID"];
+                    }
+                    $ip_address=$_SERVER['REMOTE_ADDR'];
+                    $conn->query("INSERT INTO log (user_id, event_id, action, ip_address) VALUES ('$UID', null, 'update_password', '$ip_address')"); 
                     // Redirect to login page
                     header("location: emailsent.php");
                 } else{

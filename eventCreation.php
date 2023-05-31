@@ -63,6 +63,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $EID = $row["EID"];
     }
 
+    // logging: create_event
+    $UID=$_SESSION["UID"];
+    //$EID=null;
+    //$ip_address=getenv("REMOTE_ADDR");
+    $ip_address=$_SERVER['REMOTE_ADDR'];
+    $conn->query("INSERT INTO log (user_id, event_id, action, ip_address) VALUES ('$UID', '$EID', 'create_event', '$ip_address')");
+
     $sql = "INSERT INTO registration (user_id, event_id) VALUES (?, ?)";
     $stmt = mysqli_stmt_init($conn);
     if ( ! mysqli_stmt_prepare($stmt, $sql)) {
@@ -70,6 +77,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     mysqli_stmt_bind_param($stmt, "ii", $UID, $EID);
     mysqli_stmt_execute($stmt);
+
+    // logging: register_for_event
+    $UID=$_SESSION["UID"];
+    //$EID=null;
+    //$ip_address=getenv("REMOTE_ADDR");
+    $ip_address=$_SERVER['REMOTE_ADDR'];
+    $conn->query("INSERT INTO log (user_id, event_id, action, ip_address) VALUES ('$UID', '$EID', 'register_for_event', '$ip_address')");
 
     header("Location: Dashboard.php");
 

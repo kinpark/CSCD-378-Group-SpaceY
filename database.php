@@ -109,9 +109,9 @@
 	   `action` ENUM('login', 'logout', 'register', 'create_event', 'edit_event', 'delete_event', 'approve_event', 'reject_event', 'register_for_event', 'cancel_registration', 'add_to_waitlist', 'remove_from_waitlist', 'update_profile', 'update_password', 'promote_user') NOT NULL,
 	   `ip_address` VARCHAR(45) NOT NULL,
 	   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-       FOREIGN KEY (`user_id`) REFERENCES `users`(`UID`),
-	   FOREIGN KEY (`event_id`) REFERENCES `events`(`EID`)
+       FOREIGN KEY (`user_id`) REFERENCES `users`(`UID`)
 	)";
+	   //removed from above: FOREIGN KEY (`event_id`) REFERENCES `events`(`EID`)
     if($conn->query($sql) === TRUE){
         echo "Table log created successfully";
     } else{
