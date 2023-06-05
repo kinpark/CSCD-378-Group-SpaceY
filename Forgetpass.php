@@ -98,6 +98,7 @@ function function_alert($message) {
             </div>
             </form>
         </div>
+        <p><center>Click here to <a href="index.php">go back to homepage</a>.</center></p>
     </body>
 </html>
 

@@ -14,6 +14,13 @@ $UID = $_SESSION["UID"];
 $query = "SELECT * FROM events JOIN registration ON EID=event_id WHERE user_id='$UID' AND registration.status='Registered' ORDER BY date;";
 $result = mysqli_query($conn, $query);
 
+// find the role of user
+$queryForRole = $conn->query("SELECT role FROM users WHERE UID=$UID");
+$role = null;
+while ($row = $queryForRole->fetch_assoc()){
+    $role = $row["role"];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +53,18 @@ $result = mysqli_query($conn, $query);
         </div>
         <h1>Welcome <b><?php echo htmlspecialchars($_SESSION["first_name"]); ?></b>!</h1>
         
+        <?php
+            $query2 = "SELECT * FROM log";
+            $result2 = mysqli_query($conn, $query2);
+            if (mysqli_num_rows($result2) > 0 && $role == 'admin') {
+                //$query3 = "SELECT * FROM events";
+                //$result3 = mysqli_query($conn, $query3); 
+        ?>
+            <p><center>Click here to <a href="logViewer.php">go to admin log viewer</a>.</center></p>
+        <?php
+            }
+        ?>
+
         <div class = "container">
             <div class = "row">
                 <div class = "col">
